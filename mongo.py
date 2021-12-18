@@ -1,12 +1,16 @@
-import pymongo
+from pymongo import MongoClient
+class Connect(object):
+    @staticmethod    
+    def get_connection():
+        return MongoClient("mongodb+srv://isoham:isoham@cluster0.4x3lf.mongodb.net/StudentDatabase?retryWrites=true&w=majority")
 
-# Replace the uri string with your MongoDB deployment's connection string.
-conn_str = "mongodb+srv://isoham:isoham@cluster0.4x3lf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+connection = Connect.get_connection()
+db = connection.test
+db = connection.student
+db.inventory.insert_one(
+    {"item": ["canvas"],
+     "qty": 100,
+     "tags": ["cotton"],
+     "size": {"h": 28, "w": 35.5, "uom": "cm"}})
 
-# set a 5-second connection timeout
-client = pymongo.MongoClient(conn_str, serverSelectionTimeoutMS=5000)
-
-try:
-    print(client.server_info())
-except Exception:
-    print("Unable to connect to the server.")
+# dict = {"CSE":[[1,"SS",["A","B","C"]],[2,"SD",["A","B","C"]]]}
