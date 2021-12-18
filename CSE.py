@@ -1,3 +1,15 @@
+from pymongo import MongoClient
+
+
+class Connect(object):
+    @staticmethod    
+    def get_connection():
+        return MongoClient("mongodb+srv://isoham:isoham@cluster0.4x3lf.mongodb.net/StudentDatabase?retryWrites=true&w=majority")
+
+
+
+connection = Connect.get_connection()
+db = connection.test
 CSE = []
 
 Firstyr, opt, subj = [],0,["Computer","Maths","English"]
@@ -27,5 +39,10 @@ while(opt!=-1):
 CSE.append(Firstyr)
 CSE.append(Secondyr)
 
-print(CSE)
+myDict = {}
+myDict["Computer Science"] = CSE
 
+db.inventory.insert_one(myDict)
+
+
+#print(myDict)
